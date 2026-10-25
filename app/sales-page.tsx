@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -13,6 +12,7 @@ import {
   LayoutDashboard,
   LockKeyhole,
   Monitor,
+  MessageCircle,
   Pause,
   Play,
   Plus,
@@ -27,7 +27,49 @@ import {
 
 type View = "overview" | "keywords" | "accounts";
 
+const operatingCase = {
+  url: "https://blog.naver.com/goalwaysawake",
+  name: "도루프의 미증시 요약",
+  checkedAt: "2026.10.25",
+  followers: "8,774",
+  posts: [
+    {
+      date: "10/23",
+      title: "유가 100달러 돌파와 AI 회의론",
+      likes: 107,
+      comments: 18,
+      url: "https://blog.naver.com/goalwaysawake/224452178082",
+    },
+    {
+      date: "10/22",
+      title: "나스닥 2.9% 급락, 시장을 덮친 두 가지 악재",
+      likes: 129,
+      comments: 9,
+      url: "https://blog.naver.com/goalwaysawake/224451196585",
+    },
+    {
+      date: "10/21",
+      title: "AI 성장 기대감, 다시 증시를 이끌다",
+      likes: 117,
+      comments: 6,
+      url: "https://blog.naver.com/goalwaysawake/224450374439",
+    },
+  ],
+};
+
 const questions = [
+  [
+    "운영 사례는 실제로 사용 중인 블로그인가요?",
+    "네. ‘도루프의 미증시 요약(goalwaysawake)’은 제작자가 블로그 도우미를 활용해 직접 운영하는 블로그입니다. 이웃을 꾸준히 늘려가고 있으며, 공개한 게시물의 공감과 댓글은 원문에서 직접 확인할 수 있습니다. 페이지에 표시한 숫자는 2026년 10월 25일 공개 화면을 확인한 값이며 실시간 수치는 아닙니다.",
+  ],
+  [
+    "저도 같은 이웃 수와 공감을 얻을 수 있나요?",
+    "운영 사례는 한 블로그의 실제 현황이며, 프로그램만의 효과를 분리해 측정한 결과는 아닙니다. 콘텐츠, 운영 기간, 활동 방식에 따라 결과는 달라집니다. 블로그 도우미는 키워드 검색과 공감·이웃 관리의 반복 작업을 도와주는 도구입니다.",
+  ],
+  [
+    "운영 사례에 보이는 댓글도 프로그램 기능인가요?",
+    "사례의 댓글 수는 운영 블로그 게시물에 달린 반응을 보여줍니다. 현재 소개하는 기능은 키워드 검색, 공감, 이웃 신청과 계정 관리이며 자동 댓글 기능은 포함하지 않습니다.",
+  ],
   [
     "어떤 컴퓨터에서 사용할 수 있나요?",
     "Windows x64와 macOS를 지원합니다. Mac은 Apple Silicon과 Intel용 설치 파일을 각각 제공합니다. Google Chrome이 설치되어 있어야 하며, 사용 중에는 인터넷 연결이 필요합니다.",
@@ -371,6 +413,7 @@ export default function SalesPage({
         <div className="sales-container header-inner">
           <Brand />
           <nav aria-label="주요 메뉴">
+            <a href="#case-study">실제 운영 사례</a>
             <a href="#features">주요 기능</a>
             <a href="#how-it-works">사용 방법</a>
             <a href="#faq">자주 묻는 질문</a>
@@ -385,27 +428,32 @@ export default function SalesPage({
         <section className="hero sales-container">
           <div className="hero-pill">
             <span />
-            블로그 관리의 새로운 여유
+            직접 운영하는 블로그로 보여드립니다
             <ArrowRight size={13} aria-hidden="true" />
           </div>
           <h1>
-            블로그에 쏟는 정성은 그대로.
+            이웃이 늘고,
             <br />
-            <span>반복하는 일만 가볍게.</span>
+            <span>글에 반응이 쌓이는 블로그.</span>
           </h1>
           <p className="hero-description">
-            키워드 검색부터 공감, 이웃 관리까지 한곳에서.
+            제가 운영하는 ‘도루프의 미증시 요약’에서 직접 쓰고 있습니다.
             <br />
-            블로그 도우미와 함께, 좋은 콘텐츠에 더 집중하세요.
+            꾸준히 늘려가는 이웃, 게시글에 쌓인 공감과 댓글을 확인해보세요.
           </p>
           <div className="hero-actions">
-            <a className="sales-button primary" href="#pricing">
-              블로그 도우미 시작하기
+            <a className="sales-button primary" href="#case-study">
+              실제 운영 사례 보기
               <ArrowRight size={18} aria-hidden="true" />
             </a>
-            <a className="sales-button secondary" href="#preview">
-              제품 미리보기
-              <ArrowDown size={17} aria-hidden="true" />
+            <a
+              className="sales-button secondary"
+              href={operatingCase.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              블로그 직접 확인하기
+              <ArrowUpRight size={17} aria-hidden="true" />
             </a>
           </div>
           <div className="platforms">
@@ -419,6 +467,139 @@ export default function SalesPage({
             </span>
             <span className="platform-divider" />
             설치해서 간편하게
+          </div>
+          <div className="hero-proof" aria-label="공개 운영 사례 요약">
+            <div>
+              <span>블로그 구독 이웃</span>
+              <strong>
+                {operatingCase.followers}
+                <small>명</small>
+              </strong>
+            </div>
+            <div>
+              <span>확인한 최근 3개 글의 공감</span>
+              <strong>
+                107–129<small>개 / 글</small>
+              </strong>
+            </div>
+            <div>
+              <span>확인한 최근 3개 글의 댓글</span>
+              <strong>
+                6–18<small>개 / 글</small>
+              </strong>
+            </div>
+          </div>
+          <p className="hero-proof-note">
+            {operatingCase.checkedAt} 공개 화면 기준 · 제작자의 개별 운영 사례
+          </p>
+        </section>
+        <section className="case-section sales-container" id="case-study">
+          <div className="section-heading">
+            <span className="eyebrow">A BLOG YOU CAN VISIT</span>
+            <h2>
+              제가 쓰는 도구니까,
+              <br />제 블로그부터 보여드립니다.
+            </h2>
+            <p>
+              매일의 콘텐츠에 꾸준한 소통을 더하고 있습니다.
+              <br />
+              이웃과 게시글의 반응을 원문에서 직접 살펴보세요.
+            </p>
+          </div>
+          <div className="case-card">
+            <div className="case-owner">
+              <span className="case-label">
+                <span />
+                제작자 직접 운영
+              </span>
+              <h3>{operatingCase.name}</h3>
+              <p className="case-handle">NAVER BLOG · goalwaysawake</p>
+              <p className="case-story">
+                블로그 도우미를 활용해 공감과 이웃 관리 작업을 이어가고
+                있습니다. 이웃을 꾸준히 늘리고, 글마다 공감과 댓글이 쌓이는
+                블로그를 직접 운영하고 있어요.
+              </p>
+              <div className="case-followers">
+                <UsersRound size={21} aria-hidden="true" />
+                <div>
+                  <span>이 블로그를 구독 중인 이웃</span>
+                  <strong>
+                    {operatingCase.followers}
+                    <small>명</small>
+                  </strong>
+                </div>
+              </div>
+              <a
+                className="text-link"
+                href={operatingCase.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                운영 블로그 방문하기
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </div>
+            <div className="case-posts">
+              <div className="case-posts-heading">
+                <h3>최근 게시글에 쌓인 반응</h3>
+                <span>원문으로 확인</span>
+              </div>
+              <ul role="list">
+                {operatingCase.posts.map((post) => (
+                  <li key={post.url}>
+                    <a
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="case-post-date">
+                        {post.date} 미증시 요약
+                        <ArrowUpRight size={14} aria-hidden="true" />
+                      </span>
+                      <h4>{post.title}</h4>
+                      <span className="case-reactions">
+                        <span>
+                          <Heart size={15} aria-hidden="true" />
+                          공감 <strong>{post.likes}</strong>
+                        </span>
+                        <span>
+                          <MessageCircle size={15} aria-hidden="true" />
+                          댓글 <strong>{post.comments}</strong>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="case-source">
+            출처:{" "}
+            <a
+              href={operatingCase.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              운영 블로그의 이웃커넥트
+            </a>{" "}
+            및 위 게시글 · {operatingCase.checkedAt} 확인. 댓글 수는 네이버에
+            표시된 값입니다. 실시간 수치가 아니며, 개별 운영 사례가 동일한
+            성과를 보장하지는 않습니다.
+          </p>
+        </section>
+        <section className="product-section sales-container">
+          <div className="section-heading">
+            <span className="eyebrow">THE TOOL BEHIND THE ROUTINE</span>
+            <h2>
+              꾸준한 소통을 위한
+              <br />
+              매일의 관리 도구.
+            </h2>
+            <p>
+              운영 사례 속 블로그에서 사용하는 기능을 직접 살펴보세요.
+              <br />
+              아래 화면은 조작해볼 수 있는 예시 데모입니다.
+            </p>
           </div>
           <ProductPreview />
         </section>
@@ -442,15 +623,16 @@ export default function SalesPage({
         <section className="features-section" id="features">
           <div className="sales-container">
             <div className="section-heading">
-              <span className="eyebrow">LESS WORK, MORE FOCUS</span>
+              <span className="eyebrow">KEEP THE CONVERSATION GOING</span>
               <h2>
-                매일 하던 그 일,
+                꾸준한 소통을,
                 <br />
-                이제 더 간결하게.
+                꾸준히 할 수 있도록.
               </h2>
               <p>
-                여러 화면을 오가던 블로그 관리.
-                <br className="mobile-break" /> 필요한 기능만 한곳에 모았어요.
+                관심사가 맞는 이웃을 찾고, 공감으로 소통하는 일.
+                <br className="mobile-break" /> 반복되는 관리 작업을 한곳에
+                모았어요.
               </p>
             </div>
             <div className="feature-grid">
@@ -459,14 +641,14 @@ export default function SalesPage({
                   <Search size={23} aria-hidden="true" />
                 </span>
                 <h3>
-                  내 블로그에 맞는 주제로
+                  같은 관심사를 가진
                   <br />
-                  새로운 연결을 찾아요
+                  이웃부터 만나보세요
                 </h3>
                 <p>
-                  관심 키워드를 저장하고 원하는 주제의 글을 검색하세요.
+                  내 콘텐츠와 맞는 키워드로 관련 글을 찾아보세요.
                   <br className="desktop-break" />
-                  매번 같은 검색어를 입력할 필요 없이요.
+                  관심사가 겹치는 블로그를 찾는 시작점이 됩니다.
                 </p>
                 <div className="keyword-visual" aria-hidden="true">
                   <div className="search-visual">
@@ -494,12 +676,12 @@ export default function SalesPage({
                   <Heart size={23} aria-hidden="true" />
                 </span>
                 <h3>
-                  마음을 전하는 일은 쉽게.
+                  꾸준히 이어가는 공감,
                   <br />
-                  반복 작업은 가볍게.
+                  부담 없이 이어가는 소통.
                 </h3>
                 <p>
-                  공감과 이웃 신청을 원하는 설정으로 관리하세요.
+                  공감과 이웃 신청을 나만의 운영 루틴으로 관리하세요.
                   <br className="desktop-break" />
                   작업 속도와 중지도 직접 조절할 수 있어요.
                 </p>
@@ -649,16 +831,16 @@ export default function SalesPage({
         </section>
         <section className="pricing-section sales-container" id="pricing">
           <div className="pricing-intro">
-            <span className="eyebrow">MAKE ROOM FOR YOUR BLOG</span>
+            <span className="eyebrow">BUILD YOUR OWN ROUTINE</span>
             <h2>
-              좋은 글을 위한 시간,
+              직접 써온 관리 루틴,
               <br />
-              이제 되찾아보세요.
+              이제 내 블로그에도.
             </h2>
             <p>
-              반복하던 관리에 여유를 더하는 도구.
+              콘텐츠를 만들고, 이웃과 소통하는 일.
               <br />
-              블로그 도우미로 시작하세요.
+              꾸준히 이어갈 수 있도록 블로그 도우미가 돕습니다.
             </p>
             <div className="pricing-platforms">
               <span>
@@ -771,13 +953,20 @@ export default function SalesPage({
               <Sparkles size={26} aria-hidden="true" />
             </span>
             <h2>
-              당신의 블로그에는
+              혼자 쓰는 기록에서,
               <br />
-              당신의 이야기가 더 필요하니까.
+              함께 읽는 블로그로.
             </h2>
-            <p>반복은 줄이고, 기록하는 즐거움은 더하세요.</p>
-            <a className="sales-button primary" href="#pricing">
-              블로그 도우미 시작하기
+            <p>
+              실제 운영 중인 블로그를 보고, 나에게 맞는 도구인지 판단해보세요.
+            </p>
+            <a
+              className="sales-button primary"
+              href={operatingCase.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              운영 블로그 직접 보기
               <ArrowRight size={18} aria-hidden="true" />
             </a>
           </div>
@@ -791,7 +980,7 @@ export default function SalesPage({
             <ArrowUpRight size={14} aria-hidden="true" />
           </a>
         </div>
-        <p>블로그에 집중할 수 있도록, 블로그 도우미.</p>
+        <p>꾸준히 소통하는 블로그를 위해, 블로그 도우미.</p>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Blog Helper.</span>
           <span>블로그 도우미는 네이버와 제휴하지 않은 독립 서비스입니다.</span>
